@@ -3,28 +3,38 @@
 <head>
   <meta charset="UTF-8">
   <title>مدرسة النجاة</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background-color: #003366;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    a {
+      background-color: gold;
+      color: #003366;
+      padding: 15px 30px;
+      border-radius: 10px;
+      font-size: 20px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+    a:hover {
+      background-color: #ffd700;
+    }
+  </style>
 </head>
 <body>
-  <header class="fade-in">
-    <h1>مدرسة النجاة</h1>
-    <p>الثانويه-بنين-السالميه</p>
-  </header>
-
-  <main>
-    <section class="slide-up">
-      <h2>عن المنصه</h2>
-      <p>منصه النجاة تقدم بيئة تعليمية متطورة وتواصل إلكتروني فعال بين جميع أفراد المنظومة التعليمية.</p>
-    </section>
-
-    <section class="slide-up delay">
-      <h2>سجل دخولك</h2>
-      <a href="login.html" class="login-button">تسجيل الدخول</a>
-    </section>
-  </main>
-
-  <footer class="fade-in">
-    <p>© 2025 مدرسة النجاة - جميع الحقوق محفوظة</p>
-  </footer>
+  <h1>مرحبًا بك في نظام مدرسة النجاة</h1>
+  <a href="login.html">تسجيل الدخول</a>
 </body>
 </html>
