@@ -24,7 +24,7 @@
       width: 300px;
       text-align: center;
     }
-    input, select {
+    input {
       width: 100%;
       padding: 10px;
       margin: 10px 0;
@@ -52,15 +52,6 @@
     <h2>تسجيل الدخول</h2>
     <input type="email" id="email" placeholder="البريد الإلكتروني">
     <input type="password" id="password" placeholder="كلمة المرور">
-    <select id="role">
-      <option value="student">طالب</option>
-      <option value="parent">ولي أمر</option>
-      <option value="teacher">معلم</option>
-      <option value="head">رئيس قسم</option>
-      <option value="supervisor">مشرف</option>
-      <option value="specialist">أخصائي</option>
-      <option value="admin">مدير / مساعد</option>
-    </select>
     <button onclick="login()">دخول</button>
   </div>
 
@@ -68,14 +59,12 @@
     function login() {
       const email = document.getElementById("email").value.trim();
       const password = document.getElementById("password").value.trim();
-      const role = document.getElementById("role").value;
 
       if (!email || !password) {
         alert("من فضلك أدخل البريد وكلمة المرور");
         return;
       }
 
-      // استبدل هذا بالرابط الفعلي للـ Web App
       const scriptURL = "https://script.google.com/macros/s/AKfycbxF18ZNBw5M4-Ca3TW99qRa1VhFr8M_nvAkrYgJGEQ/exec";
 
       fetch(`${scriptURL}?email=${email}&password=${password}`)
