@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>معلم [الاحياء] - مدرسة النجاة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>مدرسة النجاة الثانوية للبنين</h1>
+    <h2 id="welcome-message">مرحبًا أستاذ [اسم المادة]</h2>
+  </header>
+
+  <main>
+    <!-- إضافة واجب -->
+    <section>
+      <h3>📚 إضافة واجب</h3>
+      <form id="homework-form">
+        <select id="grade" required>
+          <option value="">اختر الصف</option>
+          <option value="الصف العاشر">الصف العاشر</option>
+          <option value="الصف الحادي عشر">الصف الحادي عشر</option>
+          <option value="الصف الثاني عشر">الصف الثاني عشر</option>
+        </select>
+        <input type="text" id="hw-title" placeholder="عنوان الواجب" required>
+        <textarea id="hw-desc" placeholder="وصف الواجب" required></textarea>
+        <input type="date" id="hw-date" required>
+        <input type="file" id="hw-file" accept="image/*,.pdf">
+        <button type="submit">إضافة</button>
+      </form>
+      <ul id="homework-list"></ul>
+    </section>
+
+    <!-- إرسال تقرير -->
+    <section>
+      <h3>📄 إرسال تقرير طالب</h3>
+      <form id="report-form">
+        <input type="text" id="report-student" placeholder="اسم الطالب" required>
+        <textarea id="report-content" placeholder="محتوى التقرير" required></textarea>
+        <button type="submit">إرسال</button>
+      </form>
+      <ul id="report-list"></ul>
+    </section>
+
+    <!-- رفع ملاحظة -->
+    <section>
+      <h3>📝 رفع ملاحظة</h3>
+      <form id="note-form">
+        <textarea id="note-content" placeholder="اكتب ملاحظتك هنا..." required></textarea>
+        <button type="submit">إرسال</button>
+      </form>
+      <ul id="note-list"></ul>
+    </section>
+  </main>
+
+  <script>
+    const name = localStorage.getItem("userName");
+    document.getElementById("welcome-message").textContent = `مرحبًا أستاذ ${name}`;
+
+    document.getElementById("homework-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const grade = document.getElementById("grade").value;
+      const title = document.getElementById("hw-title").value;
+      const desc = document.getElementById("hw-desc").value;
+      const date = document.getElementById("hw-date").value;
+      const file = document.getElementById("hw-file").files[0];
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${title}</strong> - ${desc}<br>📅 ${date} - ${grade}`;
+      if (file) {
+        const link = document.createElement("a");
+        link.href = URL.createObjectURL(file);
+        link.textContent = "📎 عرض الملف";
+        link.target = "_blank";
+        li.appendChild(document.createElement("br"));
+        li.appendChild(link);
+      }
+      document.getElementById("homework-list").appendChild(li);
+      this.reset();
+    });
+
+    document.getElementById("report-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const student = document.getElementById("report-student").value;
+      const content = document.getElementById("report-content").value;
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${student}</strong>: ${content}`;
+      document.getElementById("report-list").appendChild(li);
+      this.reset();
+    });
+
+    document.getElementById("note-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const note = document.getElementById("note-content").value;
+      const li = document.createElement("li");
+      li.textContent = note;
+      document.getElementById("note-list").appendChild(li);
+      this.reset();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <title>صفحة المشرف - مدرسة النجاة</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="fade-in">
+    <h1>مدرسة النجاة</h1>
+    <h2 id="welcome-message">مرحبًا مشرف ...</h2>
+  </header>
+
+  <main>
+    <!-- وظائف المعلم -->
+    <section class="card slide-up">
+      <h3>📄 إرسال تقرير طالب</h3>
+      <form id="report-form">
+        <input type="text" id="report-student" placeholder="اسم الطالب" required>
+        <textarea id="report-content" placeholder="محتوى التقرير" required></textarea>
+        <button type="submit">إرسال التقرير</button>
+      </form>
+      <ul id="report-list"></ul>
+    </section>
+
+    <section class="card slide-up delay">
+      <h3>📝 رفع ملاحظة</h3>
+      <form id="note-form">
+        <textarea id="note-content" placeholder="اكتب ملاحظتك هنا..." required></textarea>
+        <button type="submit">إرسال الملاحظة</button>
+      </form>
+      <ul id="note-list"></ul>
+    </section>
+
+    <section class="card slide-up delay2">
+      <h3>📚 إضافة واجب</h3>
+      <form id="homework-form">
+        <select id="grade" required>
+          <option value="">اختر الصف</option>
+          <option value="الصف الرابع">الصف الرابع</option>
+          <option value="الصف الخامس">الصف الخامس</option>
+          <option value="الصف السادس">الصف السادس</option>
+        </select>
+        <input type="text" id="hw-title" placeholder="عنوان الواجب" required>
+        <textarea id="hw-desc" placeholder="وصف الواجب" required></textarea>
+        <input type="date" id="hw-date" required>
+        <label>📎 إرفاق صورة أو ملف:</label>
+        <input type="file" id="hw-file" accept="image/*,.pdf">
+        <button type="submit">إضافة الواجب</button>
+      </form>
+      <ul id="homework-list"></ul>
+    </section>
+
+    <!-- صلاحيات المشرف -->
+    <section class="card slide-up delay2">
+      <h3>📊 تقارير المعلمين</h3>
+      <ul id="teacher-reports">
+        <li><strong>أحمد علي</strong> عن الطالب محمد عبد الله: يحتاج متابعة أكاديمية</li>
+        <li><strong>أحمد علي</strong> عن الطالب سارة خالد: ممتازة في المشاركة</li>
+      </ul>
+    </section>
+
+    <section class="card slide-up delay2">
+      <h3>🔄 تحويل حالة</h3>
+      <form id="forward-form">
+        <input type="text" id="student-name" placeholder="اسم الطالب" required>
+        <textarea id="case-desc" placeholder="وصف الحالة" required></textarea>
+        <select id="forward-to" required>
+          <option value="">اختر جهة التحويل</option>
+          <option value="specialist">الأخصائي</option>
+          <option value="head">رئيس القسم</option>
+        </select>
+        <button type="submit">تحويل</button>
+      </form>
+      <ul id="forward-list"></ul>
+    </section>
+  </main>
+
+  <footer class="fade-in">
+    <p>© 2025 مدرسة النجاة - جميع الحقوق محفوظة</p>
+  </footer>
+
+  <script>
+    const name = localStorage.getItem("userName");
+    document.getElementById("welcome-message").textContent = `مرحبًا مشرف ${name}`;
+
+    // تقرير طالب
+    document.getElementById("report-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const student = document.getElementById("report-student").value;
+      const content = document.getElementById("report-content").value;
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${student}</strong>: ${content}`;
+      document.getElementById("report-list").appendChild(li);
+      this.reset();
+    });
+
+    // ملاحظة
+    document.getElementById("note-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const note = document.getElementById("note-content").value;
+      const li = document.createElement("li");
+      li.textContent = note;
+      document.getElementById("note-list").appendChild(li);
+      this.reset();
+    });
+
+    // واجب
+    document.getElementById("homework-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const grade = document.getElementById("grade").value;
+      const title = document.getElementById("hw-title").value;
+      const desc = document.getElementById("hw-desc").value;
+      const date = document.getElementById("hw-date").value;
+      const file = document.getElementById("hw-file").files[0];
+      const li = document.createElement("li");
+      li.innerHTML = `<strong>${title}</strong> - ${desc}<br>📅 التسليم: ${date}<br>📘 الصف: ${grade}`;
+      if (file) {
+        const fileURL = URL.createObjectURL(file);
+        const link = document.createElement("a");
+        link.href = fileURL;
+        link.target = "_blank";
+        link.textContent = "📎 عرض الملف";
+        li.appendChild(document.createElement("br"));
+        li.appendChild(link);
+      }
+      document.getElementById("homework-list").appendChild(li);
+      this.reset();
+    });
+
+    // تحويل حالة
+    document.getElementById("forward-form").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const student = document.getElementById("student-name").value;
+      const desc = document.getElementById("case-desc").value;
+      const to = document.getElementById("forward-to").value;
+      const li = document.createElement("li");
+      li.innerHTML = `🔄 تم تحويل حالة <strong>${student}</strong> إلى <strong>${to === "specialist" ? "الأخصائي" : "رئيس القسم"}</strong>: ${desc}`;
+      document.getElementById("forward-list").appendChild(li);
+      this.reset();
+    });
+  </script>
+</body>
+</html>
